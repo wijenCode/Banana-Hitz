@@ -265,6 +265,9 @@
         </div>
     </footer>
 
+    <!-- Import config file -->
+    <script src="config.js"></script>
+    
     <script>
         let orderItemCount = 1;
 
@@ -429,7 +432,7 @@
             }
 
             // Create WhatsApp message
-            let message = `*🍌 PESANAN BARU BANANA HITZ 🍌*\n\n`;
+            let message = `*PESANAN BARU BANANA HITZ*\n\n`;
             message += `*Nama:* ${fullName}\n`;
             message += `*No. WhatsApp:* ${whatsapp}\n`;
             message += `*Tanggal Pengambilan:* ${pickupDate}\n\n`;
@@ -447,16 +450,21 @@
                 message += `*Catatan:* ${notes}\n`;
             }
             
-            message += `\n_Mohon konfirmasi pesanan saya. Terima kasih! 🙏_`;
+            message += `\nMohon konfirmasi pesanan saya. Terima kasih!`;
 
             // Encode message for URL
             const encodedMessage = encodeURIComponent(message);
 
-            // WhatsApp business number (ganti dengan nomor Anda)
-            const businessWhatsApp = '6282162885153';
+            // Get WhatsApp number from config
+            const businessWhatsApp = CONFIG.businessWhatsApp;
 
             // Redirect to WhatsApp
             const whatsappURL = `https://wa.me/${businessWhatsApp}?text=${encodedMessage}`;
+            
+            // Debug log (bisa dihapus setelah testing)
+            console.log('Message Preview:', message);
+            console.log('WhatsApp URL:', whatsappURL);
+            
             window.open(whatsappURL, '_blank');
 
             // Optional: Show success message
