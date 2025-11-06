@@ -3,64 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banana Hitz - Pisang Kekinian Paling Hits!</title>
+    <title>Banana Hitz - Olahan Pisang Kekinian</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'banana-yellow': '#FFD93D',
+                        'banana-dark': '#6C3428',
+                        'banana-cream': '#FFF5E0',
+                        'choco-brown': '#8B4513',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        
         body {
             font-family: 'Poppins', sans-serif;
         }
-        .gradient-yellow {
-            background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFA500 100%);
         }
-        .gradient-brown {
-            background: linear-gradient(135deg, #92400E 0%, #78350F 100%);
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
         }
-        @keyframes float {
+        
+        @keyframes floating {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
-        .float-animation {
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out;
-        }
-        .hover-scale {
-            transition: transform 0.3s ease;
-        }
-        .hover-scale:hover {
-            transform: scale(1.05);
+        
+        .pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
     </style>
 </head>
-<body class="bg-amber-50">
+<body class="bg-banana-cream">
     <!-- Navbar -->
-    <nav class="bg-white shadow-lg fixed w-full z-50">
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
-                    <div class="text-4xl">🍌</div>
-                    <h1 class="text-2xl font-bold gradient-yellow bg-clip-text text-transparent">Banana Hitz</h1>
+                    <i class="fas fa-banana text-banana-yellow text-3xl"></i>
+                    <h1 class="text-2xl font-bold text-banana-dark">Banana Hitz</h1>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-amber-800 hover:text-amber-600 font-medium">Home</a>
-                    <a href="#menu" class="text-amber-800 hover:text-amber-600 font-medium">Menu</a>
-                    <a href="#testimonial" class="text-amber-800 hover:text-amber-600 font-medium">Testimoni</a>
-                    <a href="#location" class="text-amber-800 hover:text-amber-600 font-medium">Lokasi</a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-banana-dark hover:text-banana-yellow transition">Beranda</a>
+                    <a href="#about" class="text-banana-dark hover:text-banana-yellow transition">Tentang</a>
+                    <a href="#menu" class="text-banana-dark hover:text-banana-yellow transition">Menu</a>
+                    <a href="#testimoni" class="text-banana-dark hover:text-banana-yellow transition">Testimoni</a>
+                    <a href="#contact" class="text-banana-dark hover:text-banana-yellow transition">Kontak</a>
                 </div>
-                <a href="order.html" class="gradient-yellow text-white px-6 py-2 rounded-full font-semibold hover-scale shadow-lg">
+                <a href="order.html" class="bg-banana-yellow hover:bg-yellow-500 text-banana-dark font-semibold px-6 py-2 rounded-full transition">
                     Pesan Sekarang
                 </a>
             </div>
@@ -68,24 +70,34 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-20 gradient-yellow">
+    <section id="home" class="hero-gradient pt-24 pb-16 min-h-screen flex items-center">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="md:w-1/2 text-white fade-in-up mb-10 md:mb-0">
-                    <h2 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
                         Nikmati Lezatnya<br>Pisang Kekinian<br>
-                        <span class="text-amber-900">Banana Hitz! 🍌</span>
+                        <span class="text-banana-dark">Banana Hitz</span>
                     </h2>
-                    <p class="text-xl mb-8 text-amber-100">
-                        Olahan pisang fresh, modern, dan dibuat setiap hari dengan cita rasa yang bikin nagih!
+                    <p class="text-xl text-white mb-8">
+                        Olahan pisang premium dengan cita rasa modern yang dibuat fresh setiap hari!
                     </p>
-                    <a href="order.html" class="inline-block gradient-brown text-white px-8 py-4 rounded-full font-bold text-lg hover-scale shadow-xl">
-                        <i class="fas fa-shopping-cart mr-2"></i>Pesan Sekarang
-                    </a>
+                    <div class="flex gap-4">
+                        <a href="order.html" class="bg-banana-dark hover:bg-choco-brown text-white font-bold px-8 py-4 rounded-full transition transform hover:scale-105 inline-flex items-center">
+                            <i class="fas fa-shopping-cart mr-2"></i>
+                            Pesan Sekarang
+                        </a>
+                        <a href="#menu" class="bg-white hover:bg-gray-100 text-banana-dark font-bold px-8 py-4 rounded-full transition transform hover:scale-105">
+                            Lihat Menu
+                        </a>
+                    </div>
                 </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <div class="float-animation">
-                        <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500&h=500&fit=crop" alt="Banana Products" class="rounded-3xl shadow-2xl w-full max-w-md">
+                <div data-aos="fade-left" class="relative">
+                    <div class="floating">
+                        <img src="https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=600&h=600&fit=crop" alt="Banana Products" class="rounded-3xl shadow-2xl">
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 bg-white p-4 rounded-2xl shadow-xl pulse-slow">
+                        <p class="text-banana-dark font-bold">⭐ 4.9/5.0</p>
+                        <p class="text-sm text-gray-600">500+ Pelanggan Puas</p>
                     </div>
                 </div>
             </div>
@@ -93,31 +105,30 @@
     </section>
 
     <!-- About Section -->
-    <section class="py-20 bg-white">
+    <section id="about" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center fade-in-up">
-                <h3 class="text-4xl font-bold text-amber-800 mb-6">Tentang Banana Hitz</h3>
-                <div class="w-20 h-1 gradient-yellow mx-auto mb-8"></div>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                    Banana Hitz adalah bisnis lokal F&B yang fokus pada produk olahan pisang modern dengan konsep kekinian. 
-                    Kami menggunakan pisang pilihan berkualitas tinggi yang diolah fresh setiap hari untuk menghadirkan 
-                    cita rasa terbaik. Dari crispy, melt, hingga minuman segar, semua dibuat dengan penuh cinta untuk kepuasan Anda!
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-banana-dark mb-6">Tentang Banana Hitz</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    Banana Hitz adalah bisnis lokal F&B yang fokus pada produk olahan pisang modern dan kekinian. 
+                    Kami berkomitmen menghadirkan kelezatan pisang dalam berbagai kreasi inovatif yang fresh dan 
+                    dibuat setiap hari dengan bahan berkualitas premium.
                 </p>
-                <div class="grid grid-cols-3 gap-8 mt-12">
-                    <div class="text-center">
-                        <div class="text-4xl mb-4">🏆</div>
-                        <h4 class="font-bold text-2xl text-amber-800">500+</h4>
-                        <p class="text-gray-600">Pelanggan Puas</p>
+                <div class="grid md:grid-cols-3 gap-6 mt-12">
+                    <div class="bg-banana-cream p-6 rounded-xl" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-leaf text-4xl text-banana-yellow mb-4"></i>
+                        <h3 class="font-bold text-banana-dark mb-2">100% Fresh</h3>
+                        <p class="text-gray-600">Dibuat setiap hari dengan bahan segar pilihan</p>
                     </div>
-                    <div class="text-center">
-                        <div class="text-4xl mb-4">🍌</div>
-                        <h4 class="font-bold text-2xl text-amber-800">100%</h4>
-                        <p class="text-gray-600">Pisang Fresh</p>
+                    <div class="bg-banana-cream p-6 rounded-xl" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-heart text-4xl text-banana-yellow mb-4"></i>
+                        <h3 class="font-bold text-banana-dark mb-2">Kualitas Terjamin</h3>
+                        <p class="text-gray-600">Standar kebersihan dan rasa yang konsisten</p>
                     </div>
-                    <div class="text-center">
-                        <div class="text-4xl mb-4">⭐</div>
-                        <h4 class="font-bold text-2xl text-amber-800">4.9/5</h4>
-                        <p class="text-gray-600">Rating</p>
+                    <div class="bg-banana-cream p-6 rounded-xl" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-star text-4xl text-banana-yellow mb-4"></i>
+                        <h3 class="font-bold text-banana-dark mb-2">Inovatif</h3>
+                        <p class="text-gray-600">Kreasi pisang modern dengan cita rasa unik</p>
                     </div>
                 </div>
             </div>
@@ -125,29 +136,23 @@
     </section>
 
     <!-- Menu Section -->
-    <section id="menu" class="py-20 bg-amber-50">
+    <section id="menu" class="py-20 bg-banana-cream">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16 fade-in-up">
-                <h3 class="text-4xl font-bold text-amber-800 mb-4">Menu Unggulan Kami</h3>
-                <div class="w-20 h-1 gradient-yellow mx-auto mb-4"></div>
-                <p class="text-gray-600 text-lg">Pilihan terbaik olahan pisang yang wajib dicoba!</p>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-banana-dark mb-4">Menu Unggulan</h2>
+                <p class="text-lg text-gray-700">Pilihan olahan pisang terbaik kami</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-8">
                 <!-- Menu Item 1 -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover-scale">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=400&h=300&fit=crop" alt="Banana Choco Melt" class="w-full h-64 object-cover">
-                        <div class="absolute top-4 right-4 bg-amber-500 text-white px-4 py-2 rounded-full font-bold">
-                            Best Seller!
-                        </div>
-                    </div>
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&h=300&fit=crop" alt="Banana Choco Melt" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h4 class="text-2xl font-bold text-amber-800 mb-2">Banana Choco Melt</h4>
-                        <p class="text-gray-600 mb-4">Pisang lembut dilapisi cokelat leleh yang manis dan creamy</p>
+                        <h3 class="text-2xl font-bold text-banana-dark mb-2">Banana Choco Melt</h3>
+                        <p class="text-gray-600 mb-4">Pisang crispy dengan lelehan cokelat premium yang memanjakan lidah</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-3xl font-bold text-amber-600">Rp 18.000</span>
-                            <a href="order.html" class="gradient-yellow text-white px-4 py-2 rounded-full font-semibold hover:shadow-lg">
+                            <span class="text-2xl font-bold text-banana-yellow">Rp 18.000</span>
+                            <a href="order.html" class="bg-banana-yellow hover:bg-yellow-500 text-banana-dark font-semibold px-4 py-2 rounded-full transition">
                                 Pesan
                             </a>
                         </div>
@@ -155,16 +160,14 @@
                 </div>
 
                 <!-- Menu Item 2 -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover-scale">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1587241321921-91a834d9eb4d?w=400&h=300&fit=crop" alt="Banana Crispy Original" class="w-full h-64 object-cover">
-                    </div>
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1587334207829-f6e0a2e8fe8e?w=400&h=300&fit=crop" alt="Banana Crispy Original" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h4 class="text-2xl font-bold text-amber-800 mb-2">Banana Crispy Original</h4>
-                        <p class="text-gray-600 mb-4">Pisang renyah dengan coating crispy yang gurih dan nikmat</p>
+                        <h3 class="text-2xl font-bold text-banana-dark mb-2">Banana Crispy Original</h3>
+                        <p class="text-gray-600 mb-4">Pisang goreng crispy dengan tekstur renyah di luar, lembut di dalam</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-3xl font-bold text-amber-600">Rp 15.000</span>
-                            <a href="order.html" class="gradient-yellow text-white px-4 py-2 rounded-full font-semibold hover:shadow-lg">
+                            <span class="text-2xl font-bold text-banana-yellow">Rp 15.000</span>
+                            <a href="order.html" class="bg-banana-yellow hover:bg-yellow-500 text-banana-dark font-semibold px-4 py-2 rounded-full transition">
                                 Pesan
                             </a>
                         </div>
@@ -172,16 +175,14 @@
                 </div>
 
                 <!-- Menu Item 3 -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover-scale">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&h=300&fit=crop" alt="Banana Drink" class="w-full h-64 object-cover">
-                    </div>
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1546173159-315724a31696?w=400&h=300&fit=crop" alt="Banana Drink" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h4 class="text-2xl font-bold text-amber-800 mb-2">Banana Drink</h4>
-                        <p class="text-gray-600 mb-4">Minuman segar dari pisang asli, sehat dan menyegarkan</p>
+                        <h3 class="text-2xl font-bold text-banana-dark mb-2">Banana Drink</h3>
+                        <p class="text-gray-600 mb-4">Minuman segar dari pisang asli dengan berbagai varian rasa</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-3xl font-bold text-amber-600">Rp 12.000</span>
-                            <a href="order.html" class="gradient-yellow text-white px-4 py-2 rounded-full font-semibold hover:shadow-lg">
+                            <span class="text-2xl font-bold text-banana-yellow">Rp 12.000</span>
+                            <a href="order.html" class="bg-banana-yellow hover:bg-yellow-500 text-banana-dark font-semibold px-4 py-2 rounded-full transition">
                                 Pesan
                             </a>
                         </div>
@@ -189,16 +190,14 @@
                 </div>
 
                 <!-- Menu Item 4 -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover-scale">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=400&h=300&fit=crop" alt="Banana Choco Crispy" class="w-full h-64 object-cover">
-                    </div>
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1587334207670-c6d6e7d13f23?w=400&h=300&fit=crop" alt="Banana Cheese" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h4 class="text-2xl font-bold text-amber-800 mb-2">Banana Choco Crispy</h4>
-                        <p class="text-gray-600 mb-4">Kombinasi sempurna crispy dan cokelat dalam satu gigitan</p>
+                        <h3 class="text-2xl font-bold text-banana-dark mb-2">Banana Cheese</h3>
+                        <p class="text-gray-600 mb-4">Perpaduan sempurna pisang crispy dengan keju mozzarella melted</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-3xl font-bold text-amber-600">Rp 20.000</span>
-                            <a href="order.html" class="gradient-yellow text-white px-4 py-2 rounded-full font-semibold hover:shadow-lg">
+                            <span class="text-2xl font-bold text-banana-yellow">Rp 20.000</span>
+                            <a href="order.html" class="bg-banana-yellow hover:bg-yellow-500 text-banana-dark font-semibold px-4 py-2 rounded-full transition">
                                 Pesan
                             </a>
                         </div>
@@ -206,16 +205,14 @@
                 </div>
 
                 <!-- Menu Item 5 -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover-scale">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=300&fit=crop" alt="Banana Cheese Melt" class="w-full h-64 object-cover">
-                    </div>
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition" data-aos="zoom-in" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1481391243133-f96216dcb5d2?w=400&h=300&fit=crop" alt="Banana Nugget" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h4 class="text-2xl font-bold text-amber-800 mb-2">Banana Cheese Melt</h4>
-                        <p class="text-gray-600 mb-4">Pisang dengan lelehan keju premium yang gurih dan lezat</p>
+                        <h3 class="text-2xl font-bold text-banana-dark mb-2">Banana Nugget</h3>
+                        <p class="text-gray-600 mb-4">Nugget pisang crispy dengan berbagai topping menarik</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-3xl font-bold text-amber-600">Rp 19.000</span>
-                            <a href="order.html" class="gradient-yellow text-white px-4 py-2 rounded-full font-semibold hover:shadow-lg">
+                            <span class="text-2xl font-bold text-banana-yellow">Rp 16.000</span>
+                            <a href="order.html" class="bg-banana-yellow hover:bg-yellow-500 text-banana-dark font-semibold px-4 py-2 rounded-full transition">
                                 Pesan
                             </a>
                         </div>
@@ -223,16 +220,14 @@
                 </div>
 
                 <!-- Menu Item 6 -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover-scale">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&h=300&fit=crop" alt="Banana Smoothie" class="w-full h-64 object-cover">
-                    </div>
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition" data-aos="zoom-in" data-aos-delay="600">
+                    <img src="https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=400&h=300&fit=crop" alt="Banana Smoothie Bowl" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h4 class="text-2xl font-bold text-amber-800 mb-2">Banana Smoothie</h4>
-                        <p class="text-gray-600 mb-4">Smoothie pisang kental dengan topping menarik</p>
+                        <h3 class="text-2xl font-bold text-banana-dark mb-2">Banana Smoothie Bowl</h3>
+                        <p class="text-gray-600 mb-4">Bowl smoothie pisang sehat dengan topping granola dan buah segar</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-3xl font-bold text-amber-600">Rp 16.000</span>
-                            <a href="order.html" class="gradient-yellow text-white px-4 py-2 rounded-full font-semibold hover:shadow-lg">
+                            <span class="text-2xl font-bold text-banana-yellow">Rp 22.000</span>
+                            <a href="order.html" class="bg-banana-yellow hover:bg-yellow-500 text-banana-dark font-semibold px-4 py-2 rounded-full transition">
                                 Pesan
                             </a>
                         </div>
@@ -242,188 +237,251 @@
         </div>
     </section>
 
-    <!-- Testimonial Section -->
-    <section id="testimonial" class="py-20 bg-white">
+    <!-- Cara Pemesanan Section -->
+    <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h3 class="text-4xl font-bold text-amber-800 mb-4">Apa Kata Mereka?</h3>
-                <div class="w-20 h-1 gradient-yellow mx-auto mb-4"></div>
-                <p class="text-gray-600 text-lg">Testimoni dari pelanggan setia Banana Hitz</p>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-banana-dark mb-4">Cara Pemesanan</h2>
+                <p class="text-lg text-gray-700">Mudah dan praktis untuk memesan Banana Hitz</p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-banana-yellow w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold text-white">1</span>
+                    </div>
+                    <h3 class="font-bold text-banana-dark mb-2">Pilih Menu</h3>
+                    <p class="text-gray-600">Pilih menu favorit Anda dari katalog kami</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-banana-yellow w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold text-white">2</span>
+                    </div>
+                    <h3 class="font-bold text-banana-dark mb-2">Isi Form</h3>
+                    <p class="text-gray-600">Lengkapi data pemesanan dengan benar</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-banana-yellow w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold text-white">3</span>
+                    </div>
+                    <h3 class="font-bold text-banana-dark mb-2">Pembayaran</h3>
+                    <p class="text-gray-600">Transfer sesuai metode yang dipilih</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-banana-yellow w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold text-white">4</span>
+                    </div>
+                    <h3 class="font-bold text-banana-dark mb-2">Pesanan Diantar</h3>
+                    <p class="text-gray-600">Pesanan akan diproses dan diantar</p>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-amber-50 rounded-2xl p-8 shadow-lg hover-scale">
+            <div class="mt-12 bg-banana-cream p-8 rounded-2xl max-w-2xl mx-auto" data-aos="fade-up">
+                <h3 class="text-2xl font-bold text-banana-dark mb-4 text-center">📝 Info Pre-Order (PO)</h3>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-banana-yellow mt-1 mr-3"></i>
+                        <span>Pemesanan minimal H-1 sebelum pengambilan/pengiriman</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-banana-yellow mt-1 mr-3"></i>
+                        <span>Pembayaran full payment atau DP 50% saat pemesanan</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-banana-yellow mt-1 mr-3"></i>
+                        <span>Konfirmasi pesanan via WhatsApp setelah pembayaran</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-banana-yellow mt-1 mr-3"></i>
+                        <span>Gratis ongkir untuk pembelian minimal Rp 100.000</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section id="testimoni" class="py-20 bg-banana-cream">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-banana-dark mb-4">Testimoni Pelanggan</h2>
+                <p class="text-lg text-gray-700">Apa kata mereka tentang Banana Hitz</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="100">
                     <div class="flex items-center mb-4">
-                        <img src="https://ui-avatars.com/api/?name=Siti+Nurhaliza&background=F59E0B&color=fff&size=60" alt="Customer" class="w-16 h-16 rounded-full mr-4">
+                        <img src="https://ui-avatars.com/api/?name=Siti+Nurhaliza&background=FFD93D&color=6C3428" alt="Customer" class="w-12 h-12 rounded-full mr-4">
                         <div>
-                            <h5 class="font-bold text-lg text-amber-800">Siti Nurhaliza</h5>
-                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                            <h4 class="font-bold text-banana-dark">Siti Nurhaliza</h4>
+                            <div class="text-banana-yellow">⭐⭐⭐⭐⭐</div>
                         </div>
                     </div>
-                    <p class="text-gray-700 italic">"Banana Choco Melt-nya enak banget! Coklatnya meleleh di mulut, pisangnya juga fresh. Recommended!"</p>
+                    <p class="text-gray-700 italic">"Banana Choco Melt nya enak banget! Coklatnya meleleh dan pisangnya crispy. Recommended!"</p>
                 </div>
 
-                <!-- Testimonial 2 -->
-                <div class="bg-amber-50 rounded-2xl p-8 shadow-lg hover-scale">
+                <div class="bg-white p-6 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
                     <div class="flex items-center mb-4">
-                        <img src="https://ui-avatars.com/api/?name=Budi+Santoso&background=F59E0B&color=fff&size=60" alt="Customer" class="w-16 h-16 rounded-full mr-4">
+                        <img src="https://ui-avatars.com/api/?name=Budi+Santoso&background=FFD93D&color=6C3428" alt="Customer" class="w-12 h-12 rounded-full mr-4">
                         <div>
-                            <h5 class="font-bold text-lg text-amber-800">Budi Santoso</h5>
-                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                            <h4 class="font-bold text-banana-dark">Budi Santoso</h4>
+                            <div class="text-banana-yellow">⭐⭐⭐⭐⭐</div>
                         </div>
                     </div>
-                    <p class="text-gray-700 italic">"Banana Crispy-nya renyah pol! Jadi cemilan favorit keluarga. Harganya juga terjangkau."</p>
+                    <p class="text-gray-700 italic">"Pelayanan cepat, produk selalu fresh. Banana Drink nya seger banget, cocok buat cuaca panas!"</p>
                 </div>
 
-                <!-- Testimonial 3 -->
-                <div class="bg-amber-50 rounded-2xl p-8 shadow-lg hover-scale">
+                <div class="bg-white p-6 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
                     <div class="flex items-center mb-4">
-                        <img src="https://ui-avatars.com/api/?name=Rina+Wijaya&background=F59E0B&color=fff&size=60" alt="Customer" class="w-16 h-16 rounded-full mr-4">
+                        <img src="https://ui-avatars.com/api/?name=Rina+Wijaya&background=FFD93D&color=6C3428" alt="Customer" class="w-12 h-12 rounded-full mr-4">
                         <div>
-                            <h5 class="font-bold text-lg text-amber-800">Rina Wijaya</h5>
-                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                            <h4 class="font-bold text-banana-dark">Rina Wijaya</h4>
+                            <div class="text-banana-yellow">⭐⭐⭐⭐⭐</div>
                         </div>
                     </div>
-                    <p class="text-gray-700 italic">"Banana Drink-nya seger dan sehat! Cocok buat yang lagi diet tapi pengen cemilan enak."</p>
+                    <p class="text-gray-700 italic">"Banana Crispy nya juara! Teksturnya pas, tidak terlalu berminyak. Keluarga saya suka semua!"</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center mb-4">
+                        <img src="https://ui-avatars.com/api/?name=Ahmad+Fauzi&background=FFD93D&color=6C3428" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-banana-dark">Ahmad Fauzi</h4>
+                            <div class="text-banana-yellow">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Harga terjangkau dengan kualitas premium. Packaging juga rapi dan aman. Puas banget!"</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="500">
+                    <div class="flex items-center mb-4">
+                        <img src="https://ui-avatars.com/api/?name=Dewi+Lestari&background=FFD93D&color=6C3428" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-banana-dark">Dewi Lestari</h4>
+                            <div class="text-banana-yellow">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Banana Cheese nya unik! Kombinasi pisang dan keju ternyata enak banget. Wajib coba!"</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="600">
+                    <div class="flex items-center mb-4">
+                        <img src="https://ui-avatars.com/api/?name=Joko+Widodo&background=FFD93D&color=6C3428" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-banana-dark">Joko Widodo</h4>
+                            <div class="text-banana-yellow">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Langganan terus! Setiap beli selalu konsisten rasanya. Banana Hitz memang the best!"</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pre-Order Info Section -->
-    <section id="location" class="py-20 gradient-yellow">
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16 text-white">
-                <h3 class="text-4xl font-bold mb-4">Cara Pesan Banana Hitz</h3>
-                <div class="w-20 h-1 bg-white mx-auto mb-4"></div>
-                <p class="text-amber-100 text-lg">Saat ini kami melayani Pre-Order Online</p>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-banana-dark mb-4">Hubungi Kami</h2>
+                <p class="text-lg text-gray-700">Siap melayani pesanan Anda</p>
             </div>
-
-            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-4xl mx-auto">
-                <div class="p-8 md:p-12">
-                    <div class="text-center mb-8">
-                        <div class="text-6xl mb-4">📱</div>
-                        <h4 class="text-3xl font-bold text-amber-800 mb-2">Pre-Order Sekarang!</h4>
-                        <p class="text-gray-600">Kami melayani pesanan dengan sistem Pre-Order</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="text-center bg-banana-cream p-6 rounded-xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-banana-yellow w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-whatsapp text-3xl text-white"></i>
                     </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        <div class="text-center p-6 bg-amber-50 rounded-xl">
-                            <div class="text-4xl mb-3">📝</div>
-                            <h5 class="font-bold text-lg text-amber-800 mb-2">1. Isi Form</h5>
-                            <p class="text-gray-600 text-sm">Pilih menu dan jumlah pesanan Anda</p>
-                        </div>
-                        <div class="text-center p-6 bg-amber-50 rounded-xl">
-                            <div class="text-4xl mb-3">💳</div>
-                            <h5 class="font-bold text-lg text-amber-800 mb-2">2. Transfer</h5>
-                            <p class="text-gray-600 text-sm">Lakukan pembayaran sesuai metode pilihan</p>
-                        </div>
-                        <div class="text-center p-6 bg-amber-50 rounded-xl">
-                            <div class="text-4xl mb-3">✅</div>
-                            <h5 class="font-bold text-lg text-amber-800 mb-2">3. Konfirmasi</h5>
-                            <p class="text-gray-600 text-sm">Pesanan akan dikonfirmasi via WhatsApp</p>
-                        </div>
+                    <h3 class="font-bold text-banana-dark mb-2">WhatsApp</h3>
+                    <a href="https://wa.me/6281234567890" target="_blank" class="text-gray-700 hover:text-banana-yellow transition">
+                        +62 812-3456-7890
+                    </a>
+                </div>
+                
+                <div class="text-center bg-banana-cream p-6 rounded-xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-banana-yellow w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-instagram text-3xl text-white"></i>
                     </div>
-
-                    <div class="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-6 mb-8">
-                        <h5 class="font-bold text-amber-800 mb-4 text-center">⏰ Ketentuan Pre-Order:</h5>
-                        <ul class="space-y-2 text-gray-700">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <span>Minimal pemesanan H-1 (1 hari sebelum pengambilan)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <span>Produk dibuat fresh sesuai jadwal pengambilan</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <span>Pengiriman via GoFood/GrabFood atau pick-up</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <span>Pembayaran: Transfer Bank, E-Wallet, atau COD</span>
-                            </li>
-                        </ul>
+                    <h3 class="font-bold text-banana-dark mb-2">Instagram</h3>
+                    <a href="https://instagram.com/bananahitz" target="_blank" class="text-gray-700 hover:text-banana-yellow transition">
+                        @bananahitz
+                    </a>
+                </div>
+                
+                <div class="text-center bg-banana-cream p-6 rounded-xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-banana-yellow w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map-marker-alt text-3xl text-white"></i>
                     </div>
-
-                    <div class="text-center">
-                        <a href="order.html" class="inline-block gradient-yellow text-white px-10 py-4 rounded-full font-bold text-lg hover-scale shadow-xl">
-                            <i class="fas fa-shopping-cart mr-2"></i>Pesan Sekarang
-                        </a>
-                    </div>
-
-                    <div class="mt-8 pt-8 border-t border-gray-200">
-                        <h5 class="font-bold text-center text-amber-800 mb-4">Area Layanan:</h5>
-                        <div class="flex flex-wrap justify-center gap-3">
-                            <span class="bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium">Jakarta</span>
-                            <span class="bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium">Tangerang</span>
-                            <span class="bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium">Bekasi</span>
-                            <span class="bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium">Depok</span>
-                            <span class="bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium">Bogor</span>
-                        </div>
-                    </div>
+                    <h3 class="font-bold text-banana-dark mb-2">Alamat</h3>
+                    <p class="text-gray-700">
+                        Jl. Pisang Manis No. 123<br>
+                        Jakarta Selatan, DKI Jakarta
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="gradient-brown text-white py-12">
+    <footer class="bg-banana-dark text-white py-8">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Brand -->
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
-                        <div class="text-4xl">🍌</div>
-                        <h1 class="text-2xl font-bold">Banana Hitz</h1>
+                        <i class="fas fa-banana text-banana-yellow text-2xl"></i>
+                        <h3 class="text-xl font-bold">Banana Hitz</h3>
                     </div>
-                    <p class="text-amber-200">
-                        Olahan pisang kekinian yang fresh, modern, dan dibuat setiap hari dengan cinta untuk Anda.
-                    </p>
+                    <p class="text-gray-300">Olahan pisang kekinian dengan cita rasa modern yang dibuat fresh setiap hari.</p>
                 </div>
-
-                <!-- Contact -->
+                
                 <div>
-                    <h4 class="text-xl font-bold mb-4">Hubungi Kami</h4>
-                    <div class="space-y-3">
-                        <a href="https://wa.me/6281234567890" target="_blank" class="flex items-center hover:text-amber-300">
-                            <i class="fab fa-whatsapp text-2xl mr-3"></i>
-                            <span>+62 812-3456-7890</span>
-                        </a>
-                        <a href="https://instagram.com/bananahitz" target="_blank" class="flex items-center hover:text-amber-300">
-                            <i class="fab fa-instagram text-2xl mr-3"></i>
-                            <span>@bananahitz</span>
-                        </a>
-                        <a href="mailto:info@bananahitz.com" class="flex items-center hover:text-amber-300">
-                            <i class="fas fa-envelope text-2xl mr-3"></i>
-                            <span>info@bananahitz.com</span>
-                        </a>
-                    </div>
+                    <h4 class="font-bold mb-4">Menu</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#home" class="hover:text-banana-yellow transition">Beranda</a></li>
+                        <li><a href="#about" class="hover:text-banana-yellow transition">Tentang</a></li>
+                        <li><a href="#menu" class="hover:text-banana-yellow transition">Menu</a></li>
+                        <li><a href="order.html" class="hover:text-banana-yellow transition">Pesan Sekarang</a></li>
+                    </ul>
                 </div>
-
-                <!-- Quick Links -->
+                
                 <div>
-                    <h4 class="text-xl font-bold mb-4">Menu Cepat</h4>
-                    <div class="space-y-3">
-                        <a href="#home" class="block hover:text-amber-300">Home</a>
-                        <a href="#menu" class="block hover:text-amber-300">Menu</a>
-                        <a href="#testimonial" class="block hover:text-amber-300">Testimoni</a>
-                        <a href="#location" class="block hover:text-amber-300">Lokasi</a>
-                        <a href="order.html" class="block hover:text-amber-300">Pesan Sekarang</a>
-                    </div>
+                    <h4 class="font-bold mb-4">Jam Operasional</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Senin - Jumat: 09:00 - 20:00</li>
+                        <li>Sabtu - Minggu: 10:00 - 21:00</li>
+                        <li class="text-banana-yellow">Pre-Order H-1</li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="border-t border-amber-700 mt-8 pt-8 text-center text-amber-200">
-                <p>&copy; 2025 Banana Hitz. All Rights Reserved. Made with 💛 & 🍌</p>
+            
+            <div class="border-t border-gray-600 pt-6 text-center">
+                <p class="text-gray-300">&copy; 2025 Banana Hitz. All rights reserved.</p>
+                <div class="flex justify-center space-x-4 mt-4">
+                    <a href="https://wa.me/6281234567890" target="_blank" class="text-gray-300 hover:text-banana-yellow transition">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                    </a>
+                    <a href="https://instagram.com/bananahitz" target="_blank" class="text-gray-300 hover:text-banana-yellow transition">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="https://facebook.com/bananahitz" target="_blank" class="text-gray-300 hover:text-banana-yellow transition">
+                        <i class="fab fa-facebook text-2xl"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Smooth scrolling
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -435,24 +493,6 @@
                     });
                 }
             });
-        });
-
-        // Scroll animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in-up');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
         });
     </script>
 </body>
