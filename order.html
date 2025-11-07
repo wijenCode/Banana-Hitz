@@ -6,85 +6,162 @@
     <title>Pre-Order - Banana Hitz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'banana-yellow': '#FFD93D',
-                        'banana-dark': '#6C3428',
-                        'banana-cream': '#FFF5E0',
-                        'choco-brown': '#8B4513',
+                        'banana-yellow': '#FFC94A',
+                        'banana-dark': '#2D3142',
+                        'banana-cream': '#FFFEF7',
+                        'banana-orange': '#FF8A5B',
+                        'banana-green': '#4ECDC4',
                     }
                 }
             }
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #FFC94A 0%, #FF8A5B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-gradient {
+            background: linear-gradient(135deg, #FFC94A15 0%, #FF8A5B15 100%);
+        }
+
+        .menu-item-card {
+            transition: all 0.3s ease;
+        }
+
+        .menu-item-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .menu-item-card.selected {
+            border-color: #FF8A5B;
+            box-shadow: 0 0 0 2px #FF8A5B;
+        }
+
+        .qris-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .qris-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 <body class="bg-banana-cream">
     <!-- Navbar -->
-    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
+    <nav class="glass-effect fixed w-full top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 lg:px-8 py-4">
             <div class="flex justify-between items-center">
-                <a href="index.html" class="flex items-center space-x-2">
-                    <i class="fas fa-banana text-banana-yellow text-3xl"></i>
-                    <h1 class="text-2xl font-bold text-banana-dark">Banana Hitz</h1>
+                <a href="index.html" class="flex items-center space-x-3 group">
+                    <div class="bg-gradient-to-br from-banana-yellow to-banana-orange p-2 rounded-xl transform group-hover:rotate-12 transition">
+                        <i class="fas fa-banana text-white text-2xl"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-banana-dark">Banana <span class="gradient-text">Hitz</span></h1>
                 </a>
-                <a href="index.html" class="text-banana-dark hover:text-banana-yellow transition">
-                    <i class="fas fa-arrow-left mr-2"></i>
-                    Kembali ke Beranda
+                <a href="index.html" class="text-banana-dark hover:text-banana-orange transition font-medium flex items-center space-x-2 group">
+                    <i class="fas fa-arrow-left transform group-hover:-translate-x-1 transition"></i>
+                    <span>Kembali</span>
                 </a>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
+    <section class="pt-28 pb-12 bg-gradient-to-br from-banana-yellow to-banana-orange relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full -mr-48 -mt-48"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full -ml-48 -mb-48"></div>
+        </div>
+        <div class="container mx-auto px-4 lg:px-8 relative z-10">
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <div class="inline-block bg-white px-4 py-2 rounded-full mb-4 shadow-lg">
+                    <span class="text-banana-orange font-semibold text-sm">📝 Form Pemesanan</span>
+                </div>
+                <h1 class="text-4xl lg:text-5xl font-black text-white mb-4">Pre-Order Sekarang!</h1>
+                <p class="text-white/90 text-lg">Lengkapi form di bawah ini dan pesanan Anda akan segera diproses 🚀</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Form Section -->
-    <section class="pt-24 pb-16 min-h-screen">
-        <div class="container mx-auto px-4">
-            <div class="max-w-2xl mx-auto">
-                <!-- Header -->
-                <div class="text-center mb-8">
-                    <h2 class="text-4xl font-bold text-banana-dark mb-4">Form Pre-Order</h2>
-                    <p class="text-lg text-gray-700">Lengkapi data pemesanan Anda dengan benar</p>
-                    <div class="mt-4 bg-banana-yellow bg-opacity-20 border-l-4 border-banana-yellow p-4 rounded">
-                        <p class="text-sm text-gray-700">
-                            <i class="fas fa-info-circle mr-2"></i>
-                            Pemesanan minimal H-1 sebelum pengambilan/pengiriman
-                        </p>
+    <section class="py-12 -mt-8 relative z-20">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <!-- Info Alert -->
+                <div class="bg-gradient-to-r from-banana-yellow/20 to-banana-orange/20 border-l-4 border-banana-orange rounded-2xl p-6 mb-8 backdrop-blur-sm" data-aos="fade-up">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-banana-orange p-3 rounded-xl flex-shrink-0">
+                            <i class="fas fa-info-circle text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-banana-dark mb-2">Info Penting!</h3>
+                            <ul class="space-y-1 text-gray-700 text-sm">
+                                <li>✓ Pemesanan minimal <span class="font-semibold">H-1</span> sebelum pengambilan</li>
+                                <li>✓ Pilih tanggal pengiriman sesuai kebutuhan Anda</li>
+                                <li>✓ Bisa memesan lebih dari 1 menu sekaligus</li>
+                                <li>✓ Gratis ongkir minimal pembelian Rp 100.000</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Form -->
-                <form id="orderForm" class="bg-white rounded-2xl shadow-xl p-8">
+                <form id="orderForm" class="bg-white rounded-3xl shadow-2xl p-8 lg:p-10" data-aos="fade-up" data-aos-delay="100">
                     <!-- Nama Lengkap -->
                     <div class="mb-6">
-                        <label for="nama" class="block text-banana-dark font-semibold mb-2">
-                            Nama Lengkap <span class="text-red-500">*</span>
+                        <label for="nama" class="block text-banana-dark font-semibold mb-3 flex items-center">
+                            <i class="fas fa-user text-banana-orange mr-2"></i>
+                            Nama Lengkap <span class="text-red-500 ml-1">*</span>
                         </label>
                         <input 
                             type="text" 
                             id="nama" 
                             name="nama" 
                             required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-banana-yellow focus:outline-none transition"
+                            class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-banana-orange focus:outline-none transition bg-gray-50 focus:bg-white"
                             placeholder="Masukkan nama lengkap Anda"
                         >
                     </div>
 
                     <!-- Nomor WhatsApp -->
                     <div class="mb-6">
-                        <label for="whatsapp" class="block text-banana-dark font-semibold mb-2">
-                            Nomor WhatsApp <span class="text-red-500">*</span>
+                        <label for="whatsapp" class="block text-banana-dark font-semibold mb-3 flex items-center">
+                            <i class="fab fa-whatsapp text-banana-green mr-2"></i>
+                            Nomor WhatsApp <span class="text-red-500 ml-1">*</span>
                         </label>
                         <div class="flex">
-                            <span class="inline-flex items-center px-4 bg-gray-100 border-2 border-r-0 border-gray-200 rounded-l-lg text-gray-700">
+                            <span class="inline-flex items-center px-5 bg-gradient-to-br from-banana-yellow/20 to-banana-orange/20 border-2 border-r-0 border-gray-200 rounded-l-xl text-banana-dark font-semibold">
                                 +62
                             </span>
                             <input 
@@ -93,199 +170,541 @@
                                 name="whatsapp" 
                                 required
                                 pattern="[0-9]{9,13}"
-                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-r-lg focus:border-banana-yellow focus:outline-none transition"
+                                class="w-full px-4 py-4 border-2 border-gray-200 rounded-r-xl focus:border-banana-orange focus:outline-none transition bg-gray-50 focus:bg-white"
                                 placeholder="812XXXXXXXX"
                             >
                         </div>
-                        <p class="text-sm text-gray-500 mt-1">Contoh: 81234567890 (tanpa 0 di depan)</p>
+                        <p class="text-sm text-gray-500 mt-2 ml-1">
+                            <i class="fas fa-lightbulb text-banana-yellow mr-1"></i>
+                            Contoh: 81234567890 (tanpa 0 di depan)
+                        </p>
                     </div>
 
-                    <!-- Pilihan Produk -->
+                    <!-- Tanggal Pengiriman -->
                     <div class="mb-6">
-                        <label for="produk" class="block text-banana-dark font-semibold mb-2">
-                            Pilihan Produk <span class="text-red-500">*</span>
+                        <label for="tanggal" class="block text-banana-dark font-semibold mb-3 flex items-center">
+                            <i class="fas fa-calendar-alt text-banana-orange mr-2"></i>
+                            Tanggal Pengiriman/Pengambilan <span class="text-red-500 ml-1">*</span>
                         </label>
-                        <select 
-                            id="produk" 
-                            name="produk" 
+                        <input 
+                            type="date" 
+                            id="tanggal" 
+                            name="tanggal" 
                             required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-banana-yellow focus:outline-none transition appearance-none bg-white"
+                            class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-banana-orange focus:outline-none transition bg-gray-50 focus:bg-white font-medium cursor-pointer"
                         >
-                            <option value="">-- Pilih Produk --</option>
-                            <option value="Banana Choco Melt - Rp 18.000">Banana Choco Melt - Rp 18.000</option>
-                            <option value="Banana Crispy Original - Rp 15.000">Banana Crispy Original - Rp 15.000</option>
-                            <option value="Banana Drink - Rp 12.000">Banana Drink - Rp 12.000</option>
-                            <option value="Banana Cheese - Rp 20.000">Banana Cheese - Rp 20.000</option>
-                            <option value="Banana Nugget - Rp 16.000">Banana Nugget - Rp 16.000</option>
-                            <option value="Banana Smoothie Bowl - Rp 22.000">Banana Smoothie Bowl - Rp 22.000</option>
-                        </select>
+                        <p class="text-sm text-gray-500 mt-2 ml-1">
+                            <i class="fas fa-info-circle text-banana-yellow mr-1"></i>
+                            Minimal H-1 dari hari ini
+                        </p>
                     </div>
 
-                    <!-- Jumlah Pesanan -->
+                    <!-- Pilihan Menu (Multiple) -->
                     <div class="mb-6">
-                        <label for="jumlah" class="block text-banana-dark font-semibold mb-2">
-                            Jumlah Pesanan <span class="text-red-500">*</span>
+                        <label class="block text-banana-dark font-semibold mb-3 flex items-center">
+                            <i class="fas fa-shopping-bag text-banana-orange mr-2"></i>
+                            Pilih Menu <span class="text-red-500 ml-1">*</span>
+                            <span class="text-sm text-gray-500 font-normal ml-2">(Bisa pilih lebih dari 1)</span>
                         </label>
-                        <div class="flex items-center">
-                            <button 
-                                type="button" 
-                                onclick="decreaseQuantity()" 
-                                class="bg-gray-200 hover:bg-gray-300 text-banana-dark font-bold px-4 py-3 rounded-l-lg transition"
-                            >
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <input 
-                                type="number" 
-                                id="jumlah" 
-                                name="jumlah" 
-                                value="1" 
-                                min="1" 
-                                required
-                                class="w-full px-4 py-3 border-2 border-gray-200 text-center focus:border-banana-yellow focus:outline-none transition"
-                                readonly
-                            >
-                            <button 
-                                type="button" 
-                                onclick="increaseQuantity()" 
-                                class="bg-gray-200 hover:bg-gray-300 text-banana-dark font-bold px-4 py-3 rounded-r-lg transition"
-                            >
-                                <i class="fas fa-plus"></i>
-                            </button>
+                        
+                        <div class="grid md:grid-cols-2 gap-4" id="menuContainer">
+                            <!-- Menu Item 1 -->
+                            <div class="menu-item-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer bg-gray-50 hover:border-banana-orange" onclick="toggleMenu(this, 'Banana Choco Melt', 18000)">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-gradient-to-br from-banana-yellow to-banana-orange p-2 rounded-lg">
+                                            <i class="fas fa-fire text-white text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-banana-dark">Banana Choco Melt</h4>
+                                            <p class="text-sm text-gray-600">Rp 18.000</p>
+                                        </div>
+                                    </div>
+                                    <div class="hidden items-center space-x-3 menu-controls">
+                                        <button type="button" onclick="event.stopPropagation(); decreaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-minus text-sm"></i>
+                                        </button>
+                                        <span class="font-bold text-banana-dark menu-qty">1</span>
+                                        <button type="button" onclick="event.stopPropagation(); increaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-plus text-sm"></i>
+                                        </button>
+                                    </div>
+                                    <i class="fas fa-check-circle text-2xl text-gray-300 menu-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Menu Item 2 -->
+                            <div class="menu-item-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer bg-gray-50 hover:border-banana-orange" onclick="toggleMenu(this, 'Banana Crispy Original', 15000)">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-gradient-to-br from-banana-yellow to-banana-orange p-2 rounded-lg">
+                                            <i class="fas fa-cookie-bite text-white text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-banana-dark">Banana Crispy Original</h4>
+                                            <p class="text-sm text-gray-600">Rp 15.000</p>
+                                        </div>
+                                    </div>
+                                    <div class="hidden items-center space-x-3 menu-controls">
+                                        <button type="button" onclick="event.stopPropagation(); decreaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-minus text-sm"></i>
+                                        </button>
+                                        <span class="font-bold text-banana-dark menu-qty">1</span>
+                                        <button type="button" onclick="event.stopPropagation(); increaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-plus text-sm"></i>
+                                        </button>
+                                    </div>
+                                    <i class="fas fa-check-circle text-2xl text-gray-300 menu-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Menu Item 3 -->
+                            <div class="menu-item-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer bg-gray-50 hover:border-banana-orange" onclick="toggleMenu(this, 'Banana Drink', 12000)">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-gradient-to-br from-banana-green to-banana-yellow p-2 rounded-lg">
+                                            <i class="fas fa-glass-whiskey text-white text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-banana-dark">Banana Drink</h4>
+                                            <p class="text-sm text-gray-600">Rp 12.000</p>
+                                        </div>
+                                    </div>
+                                    <div class="hidden items-center space-x-3 menu-controls">
+                                        <button type="button" onclick="event.stopPropagation(); decreaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-minus text-sm"></i>
+                                        </button>
+                                        <span class="font-bold text-banana-dark menu-qty">1</span>
+                                        <button type="button" onclick="event.stopPropagation(); increaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-plus text-sm"></i>
+                                        </button>
+                                    </div>
+                                    <i class="fas fa-check-circle text-2xl text-gray-300 menu-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Menu Item 4 -->
+                            <div class="menu-item-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer bg-gray-50 hover:border-banana-orange" onclick="toggleMenu(this, 'Banana Cheese', 20000)">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-gradient-to-br from-banana-orange to-banana-yellow p-2 rounded-lg">
+                                            <i class="fas fa-cheese text-white text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-banana-dark">Banana Cheese</h4>
+                                            <p class="text-sm text-gray-600">Rp 20.000</p>
+                                        </div>
+                                    </div>
+                                    <div class="hidden items-center space-x-3 menu-controls">
+                                        <button type="button" onclick="event.stopPropagation(); decreaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-minus text-sm"></i>
+                                        </button>
+                                        <span class="font-bold text-banana-dark menu-qty">1</span>
+                                        <button type="button" onclick="event.stopPropagation(); increaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-plus text-sm"></i>
+                                        </button>
+                                    </div>
+                                    <i class="fas fa-check-circle text-2xl text-gray-300 menu-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Menu Item 5 -->
+                            <div class="menu-item-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer bg-gray-50 hover:border-banana-orange" onclick="toggleMenu(this, 'Banana Nugget', 16000)">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-gradient-to-br from-banana-yellow to-banana-orange p-2 rounded-lg">
+                                            <i class="fas fa-drumstick-bite text-white text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-banana-dark">Banana Nugget</h4>
+                                            <p class="text-sm text-gray-600">Rp 16.000</p>
+                                        </div>
+                                    </div>
+                                    <div class="hidden items-center space-x-3 menu-controls">
+                                        <button type="button" onclick="event.stopPropagation(); decreaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-minus text-sm"></i>
+                                        </button>
+                                        <span class="font-bold text-banana-dark menu-qty">1</span>
+                                        <button type="button" onclick="event.stopPropagation(); increaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-plus text-sm"></i>
+                                        </button>
+                                    </div>
+                                    <i class="fas fa-check-circle text-2xl text-gray-300 menu-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Menu Item 6 -->
+                            <div class="menu-item-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer bg-gray-50 hover:border-banana-orange" onclick="toggleMenu(this, 'Banana Smoothie Bowl', 22000)">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-gradient-to-br from-banana-green to-banana-yellow p-2 rounded-lg">
+                                            <i class="fas fa-bowl-rice text-white text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-banana-dark">Banana Smoothie Bowl</h4>
+                                            <p class="text-sm text-gray-600">Rp 22.000</p>
+                                        </div>
+                                    </div>
+                                    <div class="hidden items-center space-x-3 menu-controls">
+                                        <button type="button" onclick="event.stopPropagation(); decreaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-minus text-sm"></i>
+                                        </button>
+                                        <span class="font-bold text-banana-dark menu-qty">1</span>
+                                        <button type="button" onclick="event.stopPropagation(); increaseMenuQty(this)" class="bg-gray-200 hover:bg-banana-orange hover:text-white w-8 h-8 rounded-lg transition flex items-center justify-center">
+                                            <i class="fas fa-plus text-sm"></i>
+                                        </button>
+                                    </div>
+                                    <i class="fas fa-check-circle text-2xl text-gray-300 menu-check"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Selected Items Summary -->
+                        <div id="selectedSummary" class="hidden mt-6 bg-gradient-to-r from-banana-yellow/20 to-banana-orange/20 rounded-xl p-4">
+                            <h4 class="font-bold text-banana-dark mb-3 flex items-center">
+                                <i class="fas fa-receipt text-banana-orange mr-2"></i>
+                                Ringkasan Pesanan
+                            </h4>
+                            <div id="summaryList" class="space-y-2 text-sm"></div>
+                            <div class="border-t border-banana-orange/30 mt-3 pt-3 flex justify-between items-center">
+                                <span class="font-bold text-banana-dark">Total:</span>
+                                <span class="text-2xl font-bold gradient-text" id="totalPrice">Rp 0</span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Metode Pembayaran -->
                     <div class="mb-6">
-                        <label for="metode" class="block text-banana-dark font-semibold mb-2">
-                            Metode Pembayaran <span class="text-red-500">*</span>
+                        <label for="metode" class="block text-banana-dark font-semibold mb-3 flex items-center">
+                            <i class="fas fa-credit-card text-banana-green mr-2"></i>
+                            Metode Pembayaran <span class="text-red-500 ml-1">*</span>
                         </label>
-                        <select 
-                            id="metode" 
-                            name="metode" 
-                            required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-banana-yellow focus:outline-none transition appearance-none bg-white"
-                        >
-                            <option value="">-- Pilih Metode Pembayaran --</option>
-                            <option value="Transfer BNI">Transfer BNI - 1234567890 (a.n. Banana Hitz)</option>
-                            <option value="DANA">DANA - 081234567890</option>
-                            <option value="Gopay">Gopay - 081234567890</option>
-                            <option value="ShopeePay">ShopeePay - 081234567890</option>
-                            <option value="COD">COD (Cash on Delivery)</option>
-                        </select>
+                        <div class="space-y-3">
+                            <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-banana-orange transition bg-gray-50">
+                                <input type="radio" name="metode" value="Transfer BNI" required class="mr-3 w-5 h-5 text-banana-orange">
+                                <i class="fas fa-university text-blue-500 text-xl mr-3"></i>
+                                <span class="font-medium text-banana-dark">Transfer BNI - 1234567890</span>
+                            </label>
+                            
+                            <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-banana-orange transition bg-gray-50">
+                                <input type="radio" name="metode" value="QRIS" required class="mr-3 w-5 h-5 text-banana-orange">
+                                <i class="fas fa-qrcode text-purple-500 text-xl mr-3"></i>
+                                <span class="font-medium text-banana-dark">QRIS (Semua E-Wallet)</span>
+                                <button type="button" onclick="showQRIS()" class="ml-auto text-banana-orange text-sm font-semibold hover:underline">
+                                    Lihat QR <i class="fas fa-external-link-alt ml-1"></i>
+                                </button>
+                            </label>
+                            
+                            <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-banana-orange transition bg-gray-50">
+                                <input type="radio" name="metode" value="COD" required class="mr-3 w-5 h-5 text-banana-orange">
+                                <i class="fas fa-money-bill-wave text-green-500 text-xl mr-3"></i>
+                                <span class="font-medium text-banana-dark">COD (Cash on Delivery)</span>
+                            </label>
+                        </div>
                     </div>
 
                     <!-- Bukti Pembayaran -->
                     <div class="mb-6">
-                        <label for="bukti" class="block text-banana-dark font-semibold mb-2">
-                            Bukti Pembayaran (Opsional)
+                        <label for="bukti" class="block text-banana-dark font-semibold mb-3 flex items-center">
+                            <i class="fas fa-image text-banana-orange mr-2"></i>
+                            Bukti Pembayaran <span class="text-gray-400 text-sm font-normal ml-2">(Opsional)</span>
                         </label>
-                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-banana-yellow transition">
-                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
-                            <p class="text-gray-600 mb-2">Klik untuk upload bukti transfer</p>
+                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-banana-orange transition bg-gradient-to-br from-gray-50 to-white cursor-pointer" onclick="document.getElementById('bukti').click()">
+                            <i class="fas fa-cloud-upload-alt text-5xl text-banana-orange mb-3"></i>
+                            <p class="text-gray-700 font-medium mb-2">Klik atau drag file di sini</p>
+                            <p class="text-gray-500 text-sm mb-3">Format: JPG, PNG, PDF (Maks. 5MB)</p>
                             <input 
                                 type="file" 
                                 id="bukti" 
                                 name="bukti" 
-                                accept="image/*"
+                                accept="image/*,.pdf"
                                 class="hidden"
                                 onchange="displayFileName()"
                             >
-                            <label for="bukti" class="cursor-pointer text-banana-yellow hover:text-yellow-600 font-semibold">
-                                Pilih File
-                            </label>
-                            <p id="fileName" class="text-sm text-gray-500 mt-2"></p>
+                            <div class="inline-block bg-gradient-to-r from-banana-yellow to-banana-orange text-white font-semibold px-6 py-2 rounded-full">
+                                <i class="fas fa-folder-open mr-2"></i>Pilih File
+                            </div>
+                            <p id="fileName" class="text-sm mt-3"></p>
                         </div>
-                        <p class="text-sm text-gray-500 mt-1">Upload bukti transfer jika sudah melakukan pembayaran</p>
                     </div>
 
                     <!-- Catatan Tambahan -->
-                    <div class="mb-6">
-                        <label for="catatan" class="block text-banana-dark font-semibold mb-2">
-                            Catatan Tambahan (Opsional)
+                    <div class="mb-8">
+                        <label for="catatan" class="block text-banana-dark font-semibold mb-3 flex items-center">
+                            <i class="fas fa-sticky-note text-banana-orange mr-2"></i>
+                            Catatan Tambahan <span class="text-gray-400 text-sm font-normal ml-2">(Opsional)</span>
                         </label>
                         <textarea 
                             id="catatan" 
                             name="catatan" 
                             rows="4"
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-banana-yellow focus:outline-none transition resize-none"
-                            placeholder="Contoh: Tolong pisangnya jangan terlalu matang, alamat pengiriman: Jl. Contoh No. 123"
+                            class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-banana-orange focus:outline-none transition resize-none bg-gray-50 focus:bg-white"
+                            placeholder="Contoh: Jangan terlalu matang, alamat pengiriman: Jl. Contoh No. 123, Jakarta Selatan, Jam pengiriman 10.00 - 12.00"
                         ></textarea>
                     </div>
 
                     <!-- Submit Button -->
                     <button 
                         type="submit"
-                        class="w-full bg-banana-yellow hover:bg-yellow-500 text-banana-dark font-bold py-4 rounded-lg transition transform hover:scale-105 flex items-center justify-center"
+                        class="w-full bg-gradient-to-r from-banana-yellow to-banana-orange hover:from-banana-orange hover:to-banana-yellow text-white font-bold py-5 rounded-xl transition transform hover:scale-105 hover:shadow-2xl flex items-center justify-center text-lg group"
                     >
-                        <i class="fab fa-whatsapp text-2xl mr-2"></i>
+                        <i class="fab fa-whatsapp text-3xl mr-3 group-hover:animate-bounce"></i>
                         Kirim Pesanan via WhatsApp
                     </button>
 
-                    <p class="text-sm text-gray-500 text-center mt-4">
-                        <i class="fas fa-lock mr-1"></i>
-                        Data Anda aman dan hanya digunakan untuk keperluan pemesanan
-                    </p>
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-500 flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-banana-green mr-2"></i>
+                            Data Anda aman dan terenkripsi
+                        </p>
+                    </div>
                 </form>
 
                 <!-- Info Rekening -->
-                <div class="mt-8 bg-white rounded-2xl shadow-xl p-6">
-                    <h3 class="text-xl font-bold text-banana-dark mb-4 flex items-center">
-                        <i class="fas fa-credit-card text-banana-yellow mr-2"></i>
+                <div class="mt-8 bg-white rounded-3xl shadow-xl p-8" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold text-banana-dark mb-6 flex items-center">
+                        <div class="bg-gradient-to-br from-banana-yellow to-banana-orange p-3 rounded-xl mr-3">
+                            <i class="fas fa-wallet text-white text-xl"></i>
+                        </div>
                         Informasi Pembayaran
                     </h3>
-                    <div class="space-y-3 text-gray-700">
-                        <div class="flex justify-between border-b pb-2">
-                            <span class="font-semibold">Transfer BNI:</span>
-                            <span>1234567890 (a.n. Banana Hitz)</span>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl border-l-4 border-blue-500">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-university text-blue-500 text-2xl"></i>
+                                <div>
+                                    <p class="font-semibold text-banana-dark">Transfer BNI</p>
+                                    <p class="text-sm text-gray-600">a.n. Banana Hitz</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-banana-dark bg-white px-4 py-2 rounded-lg">1234567890</span>
                         </div>
-                        <div class="flex justify-between border-b pb-2">
-                            <span class="font-semibold">DANA / Gopay / ShopeePay:</span>
-                            <span>081234567890</span>
+                        
+                        <div class="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl border-l-4 border-purple-500">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-qrcode text-purple-500 text-2xl"></i>
+                                <div>
+                                    <p class="font-semibold text-banana-dark">QRIS</p>
+                                    <p class="text-sm text-gray-600">DANA, Gopay, OVO, ShopeePay, dll</p>
+                                </div>
+                            </div>
+                            <button type="button" onclick="showQRIS()" class="font-bold text-banana-dark bg-white px-4 py-2 rounded-lg hover:bg-banana-orange hover:text-white transition">
+                                Lihat QR
+                            </button>
                         </div>
-                        <div class="bg-banana-cream p-3 rounded-lg mt-4">
-                            <p class="text-sm">
-                                <i class="fas fa-info-circle text-banana-yellow mr-2"></i>
-                                Konfirmasi pembayaran akan dikirim otomatis via WhatsApp setelah Anda submit form ini.
-                            </p>
+                        
+                        <div class="bg-gradient-to-r from-banana-yellow/20 to-banana-orange/20 p-5 rounded-xl mt-6">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-lightbulb text-banana-orange text-xl mt-1"></i>
+                                <div>
+                                    <p class="font-semibold text-banana-dark mb-2">Tips Pembayaran:</p>
+                                    <ul class="text-sm text-gray-700 space-y-1">
+                                        <li>✓ Gunakan nominal unik untuk mempercepat verifikasi</li>
+                                        <li>✓ Simpan bukti transfer untuk konfirmasi</li>
+                                        <li>✓ Pesanan diproses setelah pembayaran terverifikasi</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Why Order From Us -->
+                <div class="mt-8 grid md:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition">
+                        <div class="bg-gradient-to-br from-banana-yellow to-banana-orange w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shipping-fast text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-banana-dark mb-2">Pengiriman Cepat</h4>
+                        <p class="text-gray-600 text-sm">Diantar fresh sesuai jadwal</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition">
+                        <div class="bg-gradient-to-br from-banana-green to-banana-yellow w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-award text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-banana-dark mb-2">Kualitas Terjamin</h4>
+                        <p class="text-gray-600 text-sm">100% fresh & premium quality</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition">
+                        <div class="bg-gradient-to-br from-banana-orange to-banana-yellow w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-headset text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-banana-dark mb-2">CS Responsif</h4>
+                        <p class="text-gray-600 text-sm">Siap membantu 24/7</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- QRIS Modal -->
+    <div id="qrisModal" class="qris-modal">
+        <div class="bg-white rounded-3xl p-8 max-w-md mx-4 relative" data-aos="zoom-in">
+            <button onclick="closeQRIS()" class="absolute top-4 right-4 text-gray-400 hover:text-banana-orange transition">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-banana-dark mb-4 text-center">Scan QRIS</h3>
+            <p class="text-gray-600 text-center mb-6">Scan dengan aplikasi e-wallet favorit Anda</p>
+            
+            <!-- QR Code Placeholder - Ganti dengan QR Code asli Anda -->
+            <div class="bg-gradient-to-br from-banana-cream to-white p-8 rounded-2xl border-4 border-banana-orange mb-6">
+                <div class="bg-white p-4 rounded-xl">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=BananaHitz-QRIS-085758701140" alt="QRIS Code" class="w-full h-auto">
+                </div>
+            </div>
+            
+            <div class="text-center space-y-2 text-sm text-gray-600">
+                <p class="font-semibold text-banana-dark">✓ Semua E-Wallet Diterima</p>
+                <div class="flex justify-center space-x-4 mt-4">
+                    <span class="bg-banana-cream px-3 py-1 rounded-lg">DANA</span>
+                    <span class="bg-banana-cream px-3 py-1 rounded-lg">Gopay</span>
+                    <span class="bg-banana-cream px-3 py-1 rounded-lg">OVO</span>
+                    <span class="bg-banana-cream px-3 py-1 rounded-lg">ShopeePay</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-banana-dark text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <div class="flex items-center justify-center space-x-2 mb-4">
-                <i class="fas fa-banana text-banana-yellow text-2xl"></i>
-                <h3 class="text-xl font-bold">Banana Hitz</h3>
+    <footer class="bg-banana-dark text-white py-12 mt-12">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start space-x-3 mb-4">
+                        <div class="bg-gradient-to-br from-banana-yellow to-banana-orange p-2 rounded-xl">
+                            <i class="fas fa-banana text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Banana Hitz</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm">Olahan pisang kekinian dengan cita rasa modern</p>
+                </div>
+                
+                <div class="text-center">
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li><a href="index.html" class="hover:text-banana-yellow transition">Beranda</a></li>
+                        <li><a href="index.html#menu" class="hover:text-banana-yellow transition">Menu</a></li>
+                        <li><a href="index.html#testimoni" class="hover:text-banana-yellow transition">Testimoni</a></li>
+                    </ul>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <h4 class="font-bold mb-4">Hubungi Kami</h4>
+                    <div class="flex justify-center md:justify-end space-x-4">
+                        <a href="https://wa.me/6285758701140" target="_blank" class="bg-white/10 hover:bg-banana-orange w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://instagram.com/bananahitz" target="_blank" class="bg-white/10 hover:bg-banana-orange w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <p class="text-gray-300 mb-4">Olahan pisang kekinian dengan cita rasa modern</p>
-            <div class="flex justify-center space-x-4">
-                <a href="https://wa.me/6281234567890" target="_blank" class="text-gray-300 hover:text-banana-yellow transition">
-                    <i class="fab fa-whatsapp text-2xl"></i>
-                </a>
-                <a href="https://instagram.com/bananahitz" target="_blank" class="text-gray-300 hover:text-banana-yellow transition">
-                    <i class="fab fa-instagram text-2xl"></i>
-                </a>
+            
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p class="text-gray-400 text-sm">&copy; 2025 Banana Hitz. Made with <i class="fas fa-heart text-red-500"></i> in Indonesia</p>
             </div>
-            <p class="text-gray-400 text-sm mt-4">&copy; 2025 Banana Hitz. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Quantity Controls
-        function increaseQuantity() {
-            const input = document.getElementById('jumlah');
-            input.value = parseInt(input.value) + 1;
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Set minimum date (H-1)
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('tanggal').min = tomorrow.toISOString().split('T')[0];
+
+        // Selected menus storage
+        let selectedMenus = {};
+
+        // Toggle menu selection
+        function toggleMenu(element, menuName, price) {
+            const menuCheck = element.querySelector('.menu-check');
+            const menuControls = element.querySelector('.menu-controls');
+            
+            if (element.classList.contains('selected')) {
+                // Deselect
+                element.classList.remove('selected');
+                menuCheck.classList.remove('text-banana-orange');
+                menuCheck.classList.add('text-gray-300');
+                menuControls.classList.add('hidden');
+                menuControls.classList.remove('flex');
+                delete selectedMenus[menuName];
+            } else {
+                // Select
+                element.classList.add('selected');
+                menuCheck.classList.add('text-banana-orange');
+                menuCheck.classList.remove('text-gray-300');
+                menuControls.classList.remove('hidden');
+                menuControls.classList.add('flex');
+                selectedMenus[menuName] = { price: price, qty: 1 };
+            }
+            
+            updateSummary();
         }
 
-        function decreaseQuantity() {
-            const input = document.getElementById('jumlah');
-            if (parseInt(input.value) > 1) {
-                input.value = parseInt(input.value) - 1;
+        // Increase menu quantity
+        function increaseMenuQty(button) {
+            const card = button.closest('.menu-item-card');
+            const qtyElement = card.querySelector('.menu-qty');
+            const menuName = card.querySelector('h4').textContent;
+            
+            selectedMenus[menuName].qty++;
+            qtyElement.textContent = selectedMenus[menuName].qty;
+            updateSummary();
+        }
+
+        // Decrease menu quantity
+        function decreaseMenuQty(button) {
+            const card = button.closest('.menu-item-card');
+            const qtyElement = card.querySelector('.menu-qty');
+            const menuName = card.querySelector('h4').textContent;
+            
+            if (selectedMenus[menuName].qty > 1) {
+                selectedMenus[menuName].qty--;
+                qtyElement.textContent = selectedMenus[menuName].qty;
+                updateSummary();
             }
+        }
+
+        // Update summary
+        function updateSummary() {
+            const summaryDiv = document.getElementById('selectedSummary');
+            const summaryList = document.getElementById('summaryList');
+            const totalPriceElement = document.getElementById('totalPrice');
+            
+            if (Object.keys(selectedMenus).length === 0) {
+                summaryDiv.classList.add('hidden');
+                return;
+            }
+            
+            summaryDiv.classList.remove('hidden');
+            summaryList.innerHTML = '';
+            let total = 0;
+            
+            for (const [menu, data] of Object.entries(selectedMenus)) {
+                const subtotal = data.price * data.qty;
+                total += subtotal;
+                
+                const item = document.createElement('div');
+                item.className = 'flex justify-between items-center text-gray-700';
+                item.innerHTML = `
+                    <span>${menu} <span class="text-banana-orange font-semibold">x${data.qty}</span></span>
+                    <span class="font-semibold">Rp ${subtotal.toLocaleString('id-ID')}</span>
+                `;
+                summaryList.appendChild(item);
+            }
+            
+            totalPriceElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
         }
 
         // Display file name
@@ -293,44 +712,84 @@
             const input = document.getElementById('bukti');
             const fileName = document.getElementById('fileName');
             if (input.files.length > 0) {
-                fileName.textContent = '✓ File dipilih: ' + input.files[0].name;
-                fileName.classList.add('text-green-600', 'font-semibold');
+                fileName.innerHTML = `<span class="inline-flex items-center bg-green-100 text-green-700 px-4 py-2 rounded-lg font-semibold"><i class="fas fa-check-circle mr-2"></i>${input.files[0].name}</span>`;
             }
         }
+
+        // Show QRIS Modal
+        function showQRIS() {
+            document.getElementById('qrisModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close QRIS Modal
+        function closeQRIS() {
+            document.getElementById('qrisModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('qrisModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeQRIS();
+            }
+        });
 
         // Form Submission
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const nama = document.getElementById('nama').value;
-            const whatsapp = document.getElementById('whatsapp').value;
-            const produk = document.getElementById('produk').value;
-            const jumlah = document.getElementById('jumlah').value;
-            const metode = document.getElementById('metode').value;
-            const catatan = document.getElementById('catatan').value;
-            
-            // Format WhatsApp message
-            let message = `Halo Banana Hitz! Saya ingin melakukan pre-order:%0A%0A`;
-            message += `📝 *Data Pemesanan*%0A`;
-            message += `━━━━━━━━━━━━━━━━%0A`;
-            message += `👤 Nama: ${nama}%0A`;
-            message += `📱 WhatsApp: +62${whatsapp}%0A`;
-            message += `🍌 Produk: ${produk}%0A`;
-            message += `📦 Jumlah: ${jumlah}%0A`;
-            message += `💳 Metode Pembayaran: ${metode}%0A`;
-            
-            if (catatan) {
-                message += `📋 Catatan: ${catatan}%0A`;
+            // Check if any menu selected
+            if (Object.keys(selectedMenus).length === 0) {
+                alert('⚠️ Silakan pilih minimal 1 menu!');
+                return;
             }
             
-            message += `%0ATerima kasih 🍌`;
+            const nama = document.getElementById('nama').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const tanggal = document.getElementById('tanggal').value;
+            const metode = document.querySelector('input[name="metode"]:checked').value;
+            const catatan = document.getElementById('catatan').value;
+            
+            // Format tanggal
+            const date = new Date(tanggal);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const tanggalFormatted = date.toLocaleDateString('id-ID', options);
+            
+            // Calculate total
+            let total = 0;
+            let menuList = '';
+            for (const [menu, data] of Object.entries(selectedMenus)) {
+                const subtotal = data.price * data.qty;
+                total += subtotal;
+                menuList += `   • ${menu} x${data.qty} = Rp ${subtotal.toLocaleString('id-ID')}%0A`;
+            }
+            
+            // Format WhatsApp message
+            let message = `*PESANAN BARU BANANA HITZ* 🍌%0A`;
+            message += `━━━━━━━━━━━━━━━━━%0A%0A`;
+            message += `*📝 DATA PEMESANAN*%0A`;
+            message += `👤 Nama: *${nama}*%0A`;
+            message += `📱 WhatsApp: *+62${whatsapp}*%0A`;
+            message += `📅 Tanggal Pengiriman: *${tanggalFormatted}*%0A%0A`;
+            message += `*🛒 PESANAN:*%0A`;
+            message += menuList;
+            message += `%0A*💰 TOTAL: Rp ${total.toLocaleString('id-ID')}*%0A%0A`;
+            message += `💳 Pembayaran: *${metode}*%0A`;
+            
+            if (catatan) {
+                message += `%0A📋 *Catatan:*%0A${catatan}%0A`;
+            }
+            
+            message += `%0A━━━━━━━━━━━━━━━━━%0A`;
+            message += `_Terima kasih telah memesan di Banana Hitz!_ 🎉`;
             
             // Redirect to WhatsApp
-            const waNumber = '6285758701140'; // Ganti dengan nomor WA bisnis Anda
+            const waNumber = '6285758701140';
             window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
             
-            // Optional: Reset form after submission
-            // this.reset();
+            // Show success message
+            alert('✅ Form berhasil dikirim! Anda akan diarahkan ke WhatsApp untuk konfirmasi pesanan.');
         });
     </script>
 </body>
