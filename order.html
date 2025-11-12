@@ -636,11 +636,11 @@
             
             summaryDiv.classList.remove('hidden');
             summaryList.innerHTML = '';
-            let total = 0;
+            let subtotal = 0;
             
             for (const [menu, data] of Object.entries(selectedMenus)) {
-                const subtotal = data.price * data.qty;
-                total += subtotal;
+                const itemSubtotal = data.price * data.qty;
+                subtotal += itemSubtotal;
                 
                 const item = document.createElement('div');
                 item.className = 'flex justify-between items-center bg-white rounded-lg p-3 shadow-sm';
@@ -650,13 +650,37 @@
                         <span class="font-medium text-gray-800">${menu}</span>
                         <span class="bg-banana-orange text-white text-xs px-2 py-1 rounded-full font-bold">x${data.qty}</span>
                     </div>
-                    <span class="font-bold text-banana-dark">Rp ${subtotal.toLocaleString('id-ID')}</span>
+                    <span class="font-bold text-banana-dark">Rp ${itemSubtotal.toLocaleString('id-ID')}</span>
                 `;
                 summaryList.appendChild(item);
             }
             
-            subtotalPriceElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-            totalPriceElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            // Tambah biaya admin Rp 500
+            const biayaAdmin = 500;
+            const totalAkhir = subtotal + biayaAdmin;
+            
+            subtotalPriceElement.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            
+            // Update total price element dengan info biaya admin
+            const totalContainer = document.querySelector('#selectedSummary .border-t-2');
+            totalContainer.innerHTML = `
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-gray-700 font-medium">Subtotal:</span>
+                    <span class="text-lg font-bold text-gray-800">Rp ${subtotal.toLocaleString('id-ID')}</span>
+                </div>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-gray-700 font-medium">Biaya Admin:</span>
+                    <span class="text-lg font-bold text-banana-orange">+ Rp ${biayaAdmin.toLocaleString('id-ID')}</span>
+                </div>
+                <div class="flex justify-between items-center bg-gradient-to-r from-banana-yellow/30 to-banana-orange/30 rounded-xl p-4 mt-3">
+                    <span class="font-bold text-banana-dark text-lg">TOTAL PEMBAYARAN:</span>
+                    <span class="text-3xl font-black">Rp ${totalAkhir.toLocaleString('id-ID')}</span>
+                </div>
+                <p class="text-xs text-gray-600 mt-3 text-center">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Mohon transfer sesuai total di atas (sudah termasuk biaya admin Rp 500)
+                </p>
+            `;
         }
 
         // Display file name
@@ -720,17 +744,20 @@
             }
             
             // Calculate total and create detailed menu list
-            let total = 0;
+            let subtotal = 0;
             let menuList = '';
-            let menuListDetail = '';
             let itemCount = 1;
             
             for (const [menu, data] of Object.entries(selectedMenus)) {
-                const subtotal = data.price * data.qty;
-                total += subtotal;
-                menuList += `${itemCount}. ${menu}%0A   Jumlah: ${data.qty} pcs%0A   Harga: Rp ${data.price.toLocaleString('id-ID')} x ${data.qty}%0A   Subtotal: Rp ${subtotal.toLocaleString('id-ID')}%0A%0A`;
+                const itemSubtotal = data.price * data.qty;
+                subtotal += itemSubtotal;
+                menuList += `${itemCount}. ${menu}%0A   Jumlah: ${data.qty} pcs%0A   Harga: Rp ${data.price.toLocaleString('id-ID')} x ${data.qty}%0A   Subtotal: Rp ${itemSubtotal.toLocaleString('id-ID')}%0A%0A`;
                 itemCount++;
             }
+            
+            // Tambah biaya admin
+            const biayaAdmin = 500;
+            const totalAkhir = subtotal + biayaAdmin;
             
             // Format WhatsApp message with better structure
             let message = `🍌 *PESANAN BARU BANANA HITZ* 🍌%0A`;
@@ -750,15 +777,17 @@
             message += menuList;
             
             message += `━━━━━━━━━━━━━━━━━━━━%0A`;
-            message += `💰 *TOTAL PEMBAYARAN*%0A`;
-            message += `*Rp ${total.toLocaleString('id-ID')}*%0A`;
+            message += `💰 *RINCIAN PEMBAYARAN*%0A`;
+            message += `━━━━━━━━━━━━━━━━━━━━%0A`;
+            message += `Subtotal: Rp ${subtotal.toLocaleString('id-ID')}%0A`;
+            message += `Biaya Admin: Rp ${biayaAdmin.toLocaleString('id-ID')}%0A`;
+            message += `━━━━━━━━━━━━━━━━━━━━%0A`;
+            message += `*TOTAL: Rp ${totalAkhir.toLocaleString('id-ID')}*%0A`;
             message += `━━━━━━━━━━━━━━━━━━━━%0A%0A`;
             
             message += `💳 *PEMBAYARAN*%0A`;
             message += `━━━━━━━━━━━━━━━━━━━━%0A`;
-            message += `Metode: ${metode.value}%0A`;
-            message += `Status: ✅ Bukti Sudah Diupload%0A`;
-            message += `File: ${buktiFile.name}%0A%0A`;
+            message += `Metode: ${metode.value}%0A%0A`;
             
             if (catatan) {
                 message += `📋 *CATATAN*%0A`;
@@ -767,10 +796,13 @@
             }
             
             message += `━━━━━━━━━━━━━━━━━━━━%0A`;
-            message += `🙏 _Terima kasih telah memesan!_%0A`;
-            message += `_Mohon kirim bukti pembayaran setelah pesan ini_`;
+            message += `📸 *LANGKAH SELANJUTNYA:*%0A`;
+            message += `Mohon kirim BUKTI PEMBAYARAN Anda%0A`;
+            message += `(foto/screenshot transfer)%0A`;
+            message += `setelah pesan ini untuk konfirmasi pesanan.%0A%0A`;
+            message += `🙏 _Terima kasih telah memesan!_`;
             
-            // Send to Google Sheets (ganti dengan URL Apps Script Anda)
+            // Send to Google Sheets
             const SHEET_URL = 'https://script.google.com/macros/s/AKfycbywE2ploUgukzcXDM60n8dKxxd6j-UQxeoFHzrENf1u9351kWozZPbahqmfK11JANwq/exec';
             
             const orderData = {
@@ -779,23 +811,26 @@
                 menu: JSON.stringify(selectedMenus),
                 qty: Object.values(selectedMenus).reduce((sum, item) => sum + item.qty, 0),
                 harga: Object.values(selectedMenus).map(item => `${item.price}`).join(', '),
-                total: total,
+                subtotal: subtotal,
+                biayaAdmin: biayaAdmin,
+                total: totalAkhir,
                 metode: metode.value,
                 catatan: catatan
             };
             
             fetch(SHEET_URL, {
                 method: 'POST',
-                body: JSON.stringify(orderData)
+                body: JSON.stringify(orderData),
+                mode: 'no-cors'
             }).catch(err => console.log('Sheet error:', err));
             
             // Redirect to WhatsApp
             const waNumber = '6285758701140';
             window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
             
-            // Show success message with instruction
+            // Show success message with clear instruction
             setTimeout(() => {
-                alert('✅ Pesanan berhasil dibuat!\n\n📱 Silakan:\n1. Kirim pesan di WhatsApp\n2. Kirim bukti pembayaran (foto/screenshot)\n3. Tunggu konfirmasi dari admin\n\nTerima kasih! 🙏');
+                alert('✅ Pesanan berhasil dibuat!\n\n📱 PENTING:\n━━━━━━━━━━━━━━━\n1. Klik tombol "Kirim" di WhatsApp\n2. KIRIM FOTO BUKTI PEMBAYARAN\n3. Tunggu konfirmasi dari admin\n\n💰 Total yang harus dibayar:\nRp ' + totalAkhir.toLocaleString('id-ID') + '\n(Sudah termasuk biaya admin Rp 500)\n\n⚠️ Pesanan belum valid tanpa bukti pembayaran!\n\nTerima kasih! 🙏');
             }, 500);
         });
     </script>
