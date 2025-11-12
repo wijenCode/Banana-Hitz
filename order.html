@@ -76,6 +76,225 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* Mobile Responsive Fixes */
+        @media (max-width: 768px) {
+            /* Navbar adjustments */
+            nav h1 {
+                font-size: 1.25rem;
+            }
+            
+            nav .flex.items-center span {
+                display: none;
+            }
+            
+            /* Hero section text */
+            .pt-28 h1 {
+                font-size: 2rem !important;
+                line-height: 1.2;
+            }
+            
+            .pt-28 p {
+                font-size: 1rem;
+            }
+            
+            /* Form container padding */
+            .bg-white.rounded-3xl {
+                padding: 1.5rem !important;
+            }
+            
+            /* Info alert */
+            .bg-gradient-to-r.from-banana-yellow\/20 {
+                padding: 1rem !important;
+            }
+            
+            .bg-gradient-to-r.from-banana-yellow\/20 h3 {
+                font-size: 1rem;
+            }
+            
+            .bg-gradient-to-r.from-banana-yellow\/20 ul li {
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+            
+            /* Form labels */
+            label {
+                font-size: 0.875rem;
+            }
+            
+            /* Input fields */
+            input, textarea {
+                font-size: 0.875rem !important;
+                padding: 0.75rem !important;
+            }
+            
+            /* Menu item cards */
+            .menu-item-card {
+                padding: 0.75rem !important;
+            }
+            
+            .menu-item-card h4 {
+                font-size: 0.875rem;
+                line-height: 1.3;
+                word-break: break-word;
+            }
+            
+            .menu-item-card p {
+                font-size: 0.75rem;
+            }
+            
+            .menu-item-card .bg-gradient-to-br {
+                padding: 0.5rem;
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .menu-item-card i.fa-fire,
+            .menu-item-card i.fa-cookie-bite,
+            .menu-item-card i.fa-glass-whiskey,
+            .menu-item-card i.fa-cheese,
+            .menu-item-card i.fa-drumstick-bite,
+            .menu-item-card i.fa-bowl-rice,
+            .menu-item-card i.fa-box-open {
+                font-size: 1rem !important;
+            }
+            
+            .menu-item-card .menu-check {
+                font-size: 1.25rem !important;
+            }
+            
+            /* Quantity controls */
+            .menu-controls button {
+                width: 32px !important;
+                height: 32px !important;
+            }
+            
+            .menu-controls .menu-qty {
+                font-size: 0.875rem;
+            }
+            
+            /* Selected summary */
+            #selectedSummary {
+                padding: 1rem !important;
+            }
+            
+            #selectedSummary h4 {
+                font-size: 1rem;
+            }
+            
+            #selectedSummary .space-y-3 {
+                font-size: 0.875rem;
+            }
+            
+            #selectedSummary .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            
+            #selectedSummary .text-lg {
+                font-size: 1rem !important;
+            }
+            
+            /* Payment method */
+            label.flex.items-center.p-4 {
+                padding: 0.75rem !important;
+                font-size: 0.875rem;
+            }
+            
+            label.flex.items-center.p-4 span {
+                font-size: 0.875rem;
+            }
+            
+            /* File upload area */
+            .border-dashed {
+                padding: 1.5rem !important;
+            }
+            
+            .border-dashed i.fa-cloud-upload-alt {
+                font-size: 2.5rem !important;
+            }
+            
+            .border-dashed p {
+                font-size: 0.875rem;
+            }
+            
+            /* Submit button */
+            button[type="submit"] {
+                padding: 1rem !important;
+                font-size: 1rem !important;
+            }
+            
+            button[type="submit"] i {
+                font-size: 1.5rem !important;
+            }
+            
+            /* Footer */
+            footer {
+                font-size: 0.875rem;
+            }
+            
+            footer h3, footer h4 {
+                font-size: 1rem;
+            }
+            
+            /* QRIS Modal */
+            .qris-modal .bg-white {
+                padding: 1.5rem !important;
+                max-width: 90% !important;
+            }
+            
+            .qris-modal h3 {
+                font-size: 1.25rem;
+            }
+            
+            /* Prevent text overflow */
+            * {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            /* Container max width */
+            .container {
+                max-width: 100%;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            /* Adjust spacing */
+            section {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+            
+            .mb-6 {
+                margin-bottom: 1.25rem !important;
+            }
+            
+            .mb-8 {
+                margin-bottom: 1.5rem !important;
+            }
+        }
+        
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .menu-item-card h4 {
+                font-size: 0.8rem;
+            }
+            
+            .menu-item-card .flex.items-center.space-x-3 {
+                gap: 0.5rem;
+            }
+            
+            #selectedSummary .text-3xl {
+                font-size: 1.25rem !important;
+            }
+            
+            button[type="submit"] {
+                font-size: 0.875rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-banana-cream">
@@ -418,7 +637,7 @@
                             <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-banana-orange transition bg-gray-50">
                                 <input type="radio" name="metode" value="QRIS" required class="mr-3 w-5 h-5 text-banana-orange">
                                 <i class="fas fa-qrcode text-purple-500 text-xl mr-3"></i>
-                                <span class="font-medium text-banana-dark">QRIS (Mohon tambah Rp 500 untuk biaya admin)</span>
+                                <span class="font-medium text-banana-dark">QRIS (+Rp 500)</span>
                                 <button type="button" onclick="showQRIS()" class="ml-auto text-banana-orange text-sm font-semibold hover:underline">
                                     Lihat QR <i class="fas fa-external-link-alt ml-1"></i>
                                 </button>
