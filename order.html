@@ -179,6 +179,26 @@
                         </p>
                     </div>
 
+                    <!-- Alamat Lengkap -->
+                    <div class="mb-6">
+                        <label for="alamat" class="block text-banana-dark font-semibold mb-3 flex items-center">
+                            <i class="fas fa-map-marker-alt text-banana-orange mr-2"></i>
+                            Alamat Pengiriman <span class="text-red-500 ml-1">*</span>
+                        </label>
+                        <textarea 
+                            id="alamat" 
+                            name="alamat" 
+                            rows="3"
+                            required
+                            class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-banana-orange focus:outline-none transition resize-none bg-gray-50 focus:bg-white"
+                            placeholder="Contoh: Jl. Raya Kampus No. 123, Gedung A Lt. 2, Kota Bandung"
+                        ></textarea>
+                        <p class="text-sm text-gray-500 mt-2 ml-1">
+                            <i class="fas fa-info-circle text-banana-yellow mr-1"></i>
+                            Tuliskan alamat lengkap untuk pengiriman pesanan
+                        </p>
+                    </div>
+
                     <!-- Pilihan Menu (Multiple) - REQUIRED validation in JS -->
                     <div class="mb-6">
                         <label class="block text-banana-dark font-semibold mb-3 flex items-center">
@@ -263,8 +283,8 @@
                                 </div>
                             </div>
 
-                            <!-- Menu Item 4 -->
-                            <div class="menu-item-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer bg-gray-50 hover:border-banana-orange" onclick="toggleMenu(this, 'Bundling Banana Bath + Piscok Lumer', 25000)">
+                            <!-- Menu Item 4 - PERBAIKI HARGA dari 25000 ke 26000 -->
+                            <div class="menu-item-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer bg-gray-50 hover:border-banana-orange" onclick="toggleMenu(this, 'Bundling Banana Bath + Piscok Lumer', 26000)">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center space-x-3">
                                         <div class="bg-gradient-to-br from-banana-orange to-banana-yellow p-2 rounded-lg">
@@ -626,8 +646,6 @@
         function updateSummary() {
             const summaryDiv = document.getElementById('selectedSummary');
             const summaryList = document.getElementById('summaryList');
-            const subtotalPriceElement = document.getElementById('subtotalPrice');
-            const totalPriceElement = document.getElementById('totalPrice');
             
             if (Object.keys(selectedMenus).length === 0) {
                 summaryDiv.classList.add('hidden');
@@ -636,11 +654,12 @@
             
             summaryDiv.classList.remove('hidden');
             summaryList.innerHTML = '';
-            let subtotal = 0;
+            let subtotal = 0; // Reset subtotal
             
+            // Loop untuk menampilkan dan menghitung total
             for (const [menu, data] of Object.entries(selectedMenus)) {
                 const itemSubtotal = data.price * data.qty;
-                subtotal += itemSubtotal;
+                subtotal += itemSubtotal; // Akumulasi subtotal
                 
                 const item = document.createElement('div');
                 item.className = 'flex justify-between items-center bg-white rounded-lg p-3 shadow-sm';
@@ -659,28 +678,28 @@
             const biayaAdmin = 500;
             const totalAkhir = subtotal + biayaAdmin;
             
-            subtotalPriceElement.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
-            
             // Update total price element dengan info biaya admin
             const totalContainer = document.querySelector('#selectedSummary .border-t-2');
-            totalContainer.innerHTML = `
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-gray-700 font-medium">Subtotal:</span>
-                    <span class="text-lg font-bold text-gray-800">Rp ${subtotal.toLocaleString('id-ID')}</span>
-                </div>
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-gray-700 font-medium">Biaya Admin:</span>
-                    <span class="text-lg font-bold text-banana-orange">+ Rp ${biayaAdmin.toLocaleString('id-ID')}</span>
-                </div>
-                <div class="flex justify-between items-center bg-gradient-to-r from-banana-yellow/30 to-banana-orange/30 rounded-xl p-4 mt-3">
-                    <span class="font-bold text-banana-dark text-lg">TOTAL PEMBAYARAN:</span>
-                    <span class="text-3xl font-black">Rp ${totalAkhir.toLocaleString('id-ID')}</span>
-                </div>
-                <p class="text-xs text-gray-600 mt-3 text-center">
-                    <i class="fas fa-info-circle mr-1"></i>
-                    Mohon transfer sesuai total di atas (sudah termasuk biaya admin Rp 500)
-                </p>
-            `;
+            if (totalContainer) {
+                totalContainer.innerHTML = `
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-gray-700 font-medium">Subtotal:</span>
+                        <span class="text-lg font-bold text-gray-800">Rp ${subtotal.toLocaleString('id-ID')}</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-gray-700 font-medium">Biaya Admin:</span>
+                        <span class="text-lg font-bold text-banana-orange">+ Rp ${biayaAdmin.toLocaleString('id-ID')}</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-gradient-to-r from-banana-yellow/30 to-banana-orange/30 rounded-xl p-4 mt-3">
+                        <span class="font-bold text-banana-dark text-lg">TOTAL PEMBAYARAN:</span>
+                        <span class="text-3xl font-black">Rp ${totalAkhir.toLocaleString('id-ID')}</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-3 text-center">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Mohon transfer sesuai total di atas (sudah termasuk biaya admin Rp 500)
+                    </p>
+                `;
+            }
         }
 
         // Display file name
@@ -733,6 +752,7 @@
             
             const nama = document.getElementById('nama').value;
             const whatsapp = document.getElementById('whatsapp').value;
+            const alamat = document.getElementById('alamat').value;
             const metode = document.querySelector('input[name="metode"]:checked');
             const catatan = document.getElementById('catatan').value;
             const buktiFile = buktiInput.files[0];
@@ -769,6 +789,7 @@
             message += `━━━━━━━━━━━━━━━━━━━━%0A`;
             message += `Nama: ${nama}%0A`;
             message += `WhatsApp: +62${whatsapp}%0A`;
+            message += `📍 Alamat: ${alamat}%0A`;
             message += `Tanggal Order: ${new Date().toLocaleDateString('id-ID')}%0A`;
             message += `Tanggal Kirim: 16 November 2025%0A%0A`;
             
@@ -803,11 +824,12 @@
             message += `🙏 _Terima kasih telah memesan!_`;
             
             // Send to Google Sheets
-            const SHEET_URL = 'https://script.google.com/macros/s/AKfycbywE2ploUgukzcXDM60n8dKxxd6j-UQxeoFHzrENf1u9351kWozZPbahqmfK11JANwq/exec';
+            const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyuNudpXxIXEANpmy-AmRN5v6TBrQX6TjzvQYuSmbGdOvkjOsJKA4OnsTlbVxxC9Uh-/exec';
             
             const orderData = {
                 nama: nama,
                 whatsapp: whatsapp,
+                alamat: alamat,
                 menu: JSON.stringify(selectedMenus),
                 qty: Object.values(selectedMenus).reduce((sum, item) => sum + item.qty, 0),
                 harga: Object.values(selectedMenus).map(item => `${item.price}`).join(', '),
