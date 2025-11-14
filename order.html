@@ -787,6 +787,10 @@
             once: true
         });
 
+        // Cloudinary Configuration
+        const CLOUDINARY_CLOUD_NAME = 'djsquuouw'; // Ganti dengan cloud name Anda
+        const CLOUDINARY_UPLOAD_PRESET = 'banana_hitz_payments'; // Ganti dengan upload preset Anda
+
         // Selected menus storage
         let selectedMenus = {};
 
@@ -857,12 +861,11 @@
             
             summaryDiv.classList.remove('hidden');
             summaryList.innerHTML = '';
-            let subtotal = 0; // Reset subtotal
+            let subtotal = 0;
             
-            // Loop untuk menampilkan dan menghitung total
             for (const [menu, data] of Object.entries(selectedMenus)) {
                 const itemSubtotal = data.price * data.qty;
-                subtotal += itemSubtotal; // Akumulasi subtotal
+                subtotal += itemSubtotal;
                 
                 const item = document.createElement('div');
                 item.className = 'flex justify-between items-center bg-white rounded-lg p-3 shadow-sm';
@@ -877,11 +880,9 @@
                 summaryList.appendChild(item);
             }
             
-            // Tambah biaya admin Rp 500
             const biayaAdmin = 500;
             const totalAkhir = subtotal + biayaAdmin;
             
-            // Update total price element dengan info biaya admin
             const totalContainer = document.querySelector('#selectedSummary .border-t-2');
             if (totalContainer) {
                 totalContainer.innerHTML = `
@@ -936,8 +937,37 @@
             }
         });
 
+        // Upload image to Cloudinary
+        async function uploadToCloudinary(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+            formData.append('folder', 'banana-hitz/payments'); // Folder di Cloudinary
+            
+            try {
+                const response = await fetch(
+                    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    {
+                        method: 'POST',
+                        body: formData
+                    }
+                );
+                
+                const result = await response.json();
+                
+                if (result.secure_url) {
+                    return result.secure_url;
+                } else {
+                    throw new Error('Upload failed');
+                }
+            } catch (error) {
+                console.error('Cloudinary upload error:', error);
+                return null;
+            }
+        }
+
         // Form Submission
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Check if any menu selected
@@ -965,6 +995,35 @@
                 alert('⚠️ Silakan pilih metode pembayaran!');
                 return;
             }
+
+            // Validate file size (max 10MB for Cloudinary free)
+            if (buktiFile.size > 10 * 1024 * 1024) {
+                alert('⚠️ Ukuran file terlalu besar! Maksimal 10MB');
+                return;
+            }
+
+            // Show loading message
+            const loadingMsg = document.createElement('div');
+            loadingMsg.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]';
+            loadingMsg.innerHTML = `
+                <div class="bg-white rounded-2xl p-8 text-center max-w-sm mx-4">
+                    <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-banana-orange mx-auto mb-4"></div>
+                    <p class="text-banana-dark font-bold text-lg mb-2">Mengupload bukti pembayaran...</p>
+                    <p class="text-gray-600 text-sm">Mohon tunggu, jangan tutup halaman</p>
+                </div>
+            `;
+            document.body.appendChild(loadingMsg);
+            
+            // Upload image to Cloudinary
+            const imageUrl = await uploadToCloudinary(buktiFile);
+            
+            // Remove loading message
+            document.body.removeChild(loadingMsg);
+            
+            if (!imageUrl) {
+                alert('❌ Gagal mengupload bukti pembayaran!\n\n❗ Pastikan:\n- Koneksi internet stabil\n- File format: JPG/PNG\n- Ukuran max 10MB\n\nSilakan coba lagi!');
+                return;
+            }
             
             // Calculate total and create detailed menu list
             let subtotal = 0;
@@ -982,7 +1041,7 @@
             const biayaAdmin = 500;
             const totalAkhir = subtotal + biayaAdmin;
             
-            // Format WhatsApp message with better structure
+            // Format WhatsApp message
             let message = `🍌 *PESANAN BARU BANANA HITZ* 🍌%0A`;
             message += `━━━━━━━━━━━━━━━━━━━━%0A`;
             message += `📦 *BATCH 1 - Pre Order*%0A`;
@@ -1013,6 +1072,10 @@
             message += `━━━━━━━━━━━━━━━━━━━━%0A`;
             message += `Metode: ${metode.value}%0A%0A`;
             
+            message += `📸 *BUKTI PEMBAYARAN*%0A`;
+            message += `━━━━━━━━━━━━━━━━━━━━%0A`;
+            message += `${imageUrl}%0A%0A`;
+            
             if (catatan) {
                 message += `📋 *CATATAN*%0A`;
                 message += `━━━━━━━━━━━━━━━━━━━━%0A`;
@@ -1020,14 +1083,10 @@
             }
             
             message += `━━━━━━━━━━━━━━━━━━━━%0A`;
-            message += `📸 *LANGKAH SELANJUTNYA:*%0A`;
-            message += `Mohon kirim BUKTI PEMBAYARAN Anda%0A`;
-            message += `(foto/screenshot transfer)%0A`;
-            message += `setelah pesan ini untuk konfirmasi pesanan.%0A%0A`;
             message += `🙏 _Terima kasih telah memesan!_`;
             
             // Send to Google Sheets
-            const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyuNudpXxIXEANpmy-AmRN5v6TBrQX6TjzvQYuSmbGdOvkjOsJKA4OnsTlbVxxC9Uh-/exec';
+            const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyiTO7BIzUVn9fLYC5jOGXJ2q6VWKcQ53ttMywfhoM8jUNJ6Ox6SQ43RzdvwdeOsOXC/exec';
             
             const orderData = {
                 nama: nama,
@@ -1040,7 +1099,8 @@
                 biayaAdmin: biayaAdmin,
                 total: totalAkhir,
                 metode: metode.value,
-                catatan: catatan
+                catatan: catatan,
+                buktiPembayaran: imageUrl
             };
             
             fetch(SHEET_URL, {
@@ -1053,9 +1113,9 @@
             const waNumber = '6285758701140';
             window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
             
-            // Show success message with clear instruction
+            // Show success message
             setTimeout(() => {
-                alert('✅ Pesanan berhasil dibuat!\n\n📱 PENTING:\n━━━━━━━━━━━━━━━\n1. Klik tombol "Kirim" di WhatsApp\n2. KIRIM FOTO BUKTI PEMBAYARAN\n3. Tunggu konfirmasi dari admin\n\n💰 Total yang harus dibayar:\nRp ' + totalAkhir.toLocaleString('id-ID') + '\n(Sudah termasuk biaya admin Rp 500)\n\n⚠️ Pesanan belum valid tanpa bukti pembayaran!\n\nTerima kasih! 🙏');
+                alert('✅ Pesanan berhasil dibuat!\n\n📱 Bukti pembayaran telah dikirim!\n━━━━━━━━━━━━━━━\n1. Klik tombol "Kirim" di WhatsApp\n2. Tunggu konfirmasi dari admin\n\n💰 Total yang harus dibayar:\nRp ' + totalAkhir.toLocaleString('id-ID') + '\n(Sudah termasuk biaya admin Rp 500)\n\nTerima kasih! 🙏');
             }, 500);
         });
     </script>
